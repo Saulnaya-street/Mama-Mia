@@ -1,0 +1,564 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaxsoparkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Avto">
+    <Key>
+      <PropertyRef Name="IdAvtomobil" />
+    </Key>
+    <Property Name="IdAvtomobil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Marka" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="IdTipAvto" Type="Int32" />
+    <Property Name="KolvoMest" Type="Int32" />
+    <Property Name="IdSostoyaniye" Type="Int32" />
+    <NavigationProperty Name="SostoyaniyeAvto" Relationship="Self.FK_Avto_SostoyaniyeAvto" FromRole="Avto" ToRole="SostoyaniyeAvto" />
+    <NavigationProperty Name="Tip_Avto" Relationship="Self.FK_Avto_Tip_Avto" FromRole="Avto" ToRole="Tip_Avto" />
+    <NavigationProperty Name="Smena" Relationship="Self.FK_Smena_Avto" FromRole="Avto" ToRole="Smena" />
+  </EntityType>
+  <EntityType Name="Dolznost">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Sotrudniki_Dolznost" FromRole="Dolznost" ToRole="Sotrudniki" />
+  </EntityType>
+  <EntityType Name="IstoriaZakazov">
+    <Key>
+      <PropertyRef Name="IdIstoriaZakazov" />
+    </Key>
+    <Property Name="IdIstoriaZakazov" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdZakazi" Type="Int32" />
+    <Property Name="IdOtcheta" Type="Int32" />
+    <NavigationProperty Name="Otchet" Relationship="Self.FK_IstoriaZakazov_Otchet" FromRole="IstoriaZakazov" ToRole="Otchet" />
+    <NavigationProperty Name="Zakazi" Relationship="Self.FK_IstoriaZakazov_Zakazi" FromRole="IstoriaZakazov" ToRole="Zakazi" />
+  </EntityType>
+  <EntityType Name="Klient">
+    <Key>
+      <PropertyRef Name="IdKlienta" />
+    </Key>
+    <Property Name="IdKlienta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Imia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Familia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IdOtsenka" Type="Int32" Nullable="false" />
+    <Property Name="KontaktnyyNomer" Type="String" MaxLength="27" FixedLength="false" Unicode="true" />
+    <Property Name="Pochta" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="IdPlatezhnyyeKarty" Type="Int32" />
+    <NavigationProperty Name="Otsenka" Relationship="Self.FK_Klient_otsenka" FromRole="Klient" ToRole="Otsenka" />
+    <NavigationProperty Name="PlatezhnyyeKarty" Relationship="Self.FK_Klient_PlatezhnyyeKarty" FromRole="Klient" ToRole="PlatezhnyyeKarty" />
+    <NavigationProperty Name="Zakazi" Relationship="Self.FK_Zakazi_Klient" FromRole="Klient" ToRole="Zakazi" />
+  </EntityType>
+  <EntityType Name="Oplata">
+    <Key>
+      <PropertyRef Name="IdOplata" />
+    </Key>
+    <Property Name="IdOplata" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Summa" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Data" Type="DateTime" Precision="0" />
+    <Property Name="Vremia" Type="Time" Precision="7" />
+    <Property Name="IdSposobOplati" Type="Int32" />
+    <Property Name="IdStatusOplati" Type="Int32" />
+    <NavigationProperty Name="SposobOplati" Relationship="Self.FK_Oplata_SposobOplati" FromRole="Oplata" ToRole="SposobOplati" />
+    <NavigationProperty Name="StatusOplati" Relationship="Self.FK_Oplata_StatusOplati" FromRole="Oplata" ToRole="StatusOplati" />
+    <NavigationProperty Name="Zakazi" Relationship="Self.FK_Zakazi_Oplata" FromRole="Oplata" ToRole="Zakazi" />
+  </EntityType>
+  <EntityType Name="Otchet">
+    <Key>
+      <PropertyRef Name="IdOtcheta" />
+    </Key>
+    <Property Name="IdOtcheta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTipOtcheta" Type="Int32" />
+    <Property Name="ObshchayaVyruchka" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ObshchayaRashodi" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IdVremia" Type="Int32" />
+    <NavigationProperty Name="IstoriaZakazov" Relationship="Self.FK_IstoriaZakazov_Otchet" FromRole="Otchet" ToRole="IstoriaZakazov" />
+    <NavigationProperty Name="Tip" Relationship="Self.FK_Otchet_Tip" FromRole="Otchet" ToRole="Tip" />
+    <NavigationProperty Name="Vremia" Relationship="Self.FK_Otchet_Vremia" FromRole="Otchet" ToRole="Vremia" />
+  </EntityType>
+  <EntityType Name="Otsenka">
+    <Key>
+      <PropertyRef Name="IdOtsenka" />
+    </Key>
+    <Property Name="IdOtsenka" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Klient" Relationship="Self.FK_Klient_otsenka" FromRole="Otsenka" ToRole="Klient" />
+    <NavigationProperty Name="Smena" Relationship="Self.FK_Smena_Otsenka" FromRole="Otsenka" ToRole="Smena" />
+  </EntityType>
+  <EntityType Name="Period">
+    <Key>
+      <PropertyRef Name="IdPeriod" />
+    </Key>
+    <Property Name="IdPeriod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Vremia" Relationship="Self.FK_Vremia_Period" FromRole="Period" ToRole="Vremia" />
+  </EntityType>
+  <EntityType Name="PlatezhnyyeKarty">
+    <Key>
+      <PropertyRef Name="IdPlatezhnyyeKarty" />
+    </Key>
+    <Property Name="IdPlatezhnyyeKarty" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomerKarty" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mesyats" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="God" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="Kod_cvc_" Type="Int32" />
+    <NavigationProperty Name="Klient" Relationship="Self.FK_Klient_PlatezhnyyeKarty" FromRole="PlatezhnyyeKarty" ToRole="Klient" />
+  </EntityType>
+  <EntityType Name="Poezdka">
+    <Key>
+      <PropertyRef Name="IdPoezdka" />
+    </Key>
+    <Property Name="IdPoezdka" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdressNachala" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="IdTariv" Type="Int32" />
+    <Property Name="AdressKontsa" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tariv" Relationship="Self.FK_Poezdka_Tariv" FromRole="Poezdka" ToRole="Tariv" />
+    <NavigationProperty Name="Zakazi" Relationship="Self.FK_Zakazi_Poezdka" FromRole="Poezdka" ToRole="Zakazi" />
+  </EntityType>
+  <EntityType Name="Smena">
+    <Key>
+      <PropertyRef Name="IdSmena" />
+    </Key>
+    <Property Name="IdSmena" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSotrudniki" Type="Int32" />
+    <Property Name="StazhVozhdeniya" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="IdAvtomobil" Type="Int32" />
+    <Property Name="IdOtsenka" Type="Int32" />
+    <NavigationProperty Name="Avto" Relationship="Self.FK_Smena_Avto" FromRole="Smena" ToRole="Avto" />
+    <NavigationProperty Name="Otsenka" Relationship="Self.FK_Smena_Otsenka" FromRole="Smena" ToRole="Otsenka" />
+    <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Smena_Sotrudniki" FromRole="Smena" ToRole="Sotrudniki" />
+    <NavigationProperty Name="Zakazi" Relationship="Self.FK_Zakazi_Smena" FromRole="Smena" ToRole="Zakazi" />
+  </EntityType>
+  <EntityType Name="SostoyaniyeAvto">
+    <Key>
+      <PropertyRef Name="IdSostoyaniye" />
+    </Key>
+    <Property Name="IdSostoyaniye" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Avto" Relationship="Self.FK_Avto_SostoyaniyeAvto" FromRole="SostoyaniyeAvto" ToRole="Avto" />
+  </EntityType>
+  <EntityType Name="Sotrudniki">
+    <Key>
+      <PropertyRef Name="IdSotrudniki" />
+    </Key>
+    <Property Name="IdSotrudniki" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Imia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Familia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Othestvo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IdRol" Type="Int32" />
+    <Property Name="Pochta" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Dolznost" Relationship="Self.FK_Sotrudniki_Dolznost" FromRole="Sotrudniki" ToRole="Dolznost" />
+    <NavigationProperty Name="Smena" Relationship="Self.FK_Smena_Sotrudniki" FromRole="Sotrudniki" ToRole="Smena" />
+  </EntityType>
+  <EntityType Name="SposobOplati">
+    <Key>
+      <PropertyRef Name="IdSposobOplati" />
+    </Key>
+    <Property Name="IdSposobOplati" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Oplata" Relationship="Self.FK_Oplata_SposobOplati" FromRole="SposobOplati" ToRole="Oplata" />
+  </EntityType>
+  <EntityType Name="StatusOplati">
+    <Key>
+      <PropertyRef Name="IdStatusOplati" />
+    </Key>
+    <Property Name="IdStatusOplati" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Oplata" Relationship="Self.FK_Oplata_StatusOplati" FromRole="StatusOplati" ToRole="Oplata" />
+  </EntityType>
+  <EntityType Name="Tariv">
+    <Key>
+      <PropertyRef Name="IdTariv" />
+    </Key>
+    <Property Name="IdTariv" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Tsena" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Poezdka" Relationship="Self.FK_Poezdka_Tariv" FromRole="Tariv" ToRole="Poezdka" />
+  </EntityType>
+  <EntityType Name="Tip">
+    <Key>
+      <PropertyRef Name="IdTipOtcheta" />
+    </Key>
+    <Property Name="IdTipOtcheta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Otchet" Relationship="Self.FK_Otchet_Tip" FromRole="Tip" ToRole="Otchet" />
+  </EntityType>
+  <EntityType Name="Tip_Avto">
+    <Key>
+      <PropertyRef Name="IdTipAvto" />
+    </Key>
+    <Property Name="IdTipAvto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nazvania" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="GodVipuska" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Avto" Relationship="Self.FK_Avto_Tip_Avto" FromRole="Tip_Avto" ToRole="Avto" />
+  </EntityType>
+  <EntityType Name="Vremia">
+    <Key>
+      <PropertyRef Name="IdVremia" />
+    </Key>
+    <Property Name="IdVremia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DataNachalo" Type="DateTime" Precision="0" />
+    <Property Name="DataKonetsa" Type="DateTime" Precision="0" />
+    <Property Name="IdPeriod" Type="Int32" />
+    <NavigationProperty Name="Otchet" Relationship="Self.FK_Otchet_Vremia" FromRole="Vremia" ToRole="Otchet" />
+    <NavigationProperty Name="Period" Relationship="Self.FK_Vremia_Period" FromRole="Vremia" ToRole="Period" />
+  </EntityType>
+  <EntityType Name="Zakazi">
+    <Key>
+      <PropertyRef Name="IdZakazi" />
+    </Key>
+    <Property Name="IdZakazi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VremiaZakaza" Type="DateTime" Precision="0" />
+    <Property Name="DataZakaza" Type="Time" Precision="7" />
+    <Property Name="IdKlienta" Type="Int32" />
+    <Property Name="IdSmena" Type="Int32" />
+    <Property Name="IdPoezdka" Type="Int32" />
+    <Property Name="IdOplata" Type="Int32" />
+    <NavigationProperty Name="IstoriaZakazov" Relationship="Self.FK_IstoriaZakazov_Zakazi" FromRole="Zakazi" ToRole="IstoriaZakazov" />
+    <NavigationProperty Name="Klient" Relationship="Self.FK_Zakazi_Klient" FromRole="Zakazi" ToRole="Klient" />
+    <NavigationProperty Name="Oplata" Relationship="Self.FK_Zakazi_Oplata" FromRole="Zakazi" ToRole="Oplata" />
+    <NavigationProperty Name="Poezdka" Relationship="Self.FK_Zakazi_Poezdka" FromRole="Zakazi" ToRole="Poezdka" />
+    <NavigationProperty Name="Smena" Relationship="Self.FK_Zakazi_Smena" FromRole="Zakazi" ToRole="Smena" />
+  </EntityType>
+  <Association Name="FK_Avto_SostoyaniyeAvto">
+    <End Role="SostoyaniyeAvto" Type="Self.SostoyaniyeAvto" Multiplicity="0..1" />
+    <End Role="Avto" Type="Self.Avto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SostoyaniyeAvto">
+        <PropertyRef Name="IdSostoyaniye" />
+      </Principal>
+      <Dependent Role="Avto">
+        <PropertyRef Name="IdSostoyaniye" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Avto_Tip_Avto">
+    <End Role="Tip_Avto" Type="Self.Tip_Avto" Multiplicity="0..1" />
+    <End Role="Avto" Type="Self.Avto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tip_Avto">
+        <PropertyRef Name="IdTipAvto" />
+      </Principal>
+      <Dependent Role="Avto">
+        <PropertyRef Name="IdTipAvto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Smena_Avto">
+    <End Role="Avto" Type="Self.Avto" Multiplicity="0..1" />
+    <End Role="Smena" Type="Self.Smena" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Avto">
+        <PropertyRef Name="IdAvtomobil" />
+      </Principal>
+      <Dependent Role="Smena">
+        <PropertyRef Name="IdAvtomobil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sotrudniki_Dolznost">
+    <End Role="Dolznost" Type="Self.Dolznost" Multiplicity="0..1" />
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dolznost">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Sotrudniki">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IstoriaZakazov_Otchet">
+    <End Role="Otchet" Type="Self.Otchet" Multiplicity="0..1" />
+    <End Role="IstoriaZakazov" Type="Self.IstoriaZakazov" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Otchet">
+        <PropertyRef Name="IdOtcheta" />
+      </Principal>
+      <Dependent Role="IstoriaZakazov">
+        <PropertyRef Name="IdOtcheta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IstoriaZakazov_Zakazi">
+    <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="0..1" />
+    <End Role="IstoriaZakazov" Type="Self.IstoriaZakazov" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zakazi">
+        <PropertyRef Name="IdZakazi" />
+      </Principal>
+      <Dependent Role="IstoriaZakazov">
+        <PropertyRef Name="IdZakazi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Klient_otsenka">
+    <End Role="Otsenka" Type="Self.Otsenka" Multiplicity="1" />
+    <End Role="Klient" Type="Self.Klient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Otsenka">
+        <PropertyRef Name="IdOtsenka" />
+      </Principal>
+      <Dependent Role="Klient">
+        <PropertyRef Name="IdOtsenka" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Klient_PlatezhnyyeKarty">
+    <End Role="PlatezhnyyeKarty" Type="Self.PlatezhnyyeKarty" Multiplicity="0..1" />
+    <End Role="Klient" Type="Self.Klient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlatezhnyyeKarty">
+        <PropertyRef Name="IdPlatezhnyyeKarty" />
+      </Principal>
+      <Dependent Role="Klient">
+        <PropertyRef Name="IdPlatezhnyyeKarty" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakazi_Klient">
+    <End Role="Klient" Type="Self.Klient" Multiplicity="0..1" />
+    <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Klient">
+        <PropertyRef Name="IdKlienta" />
+      </Principal>
+      <Dependent Role="Zakazi">
+        <PropertyRef Name="IdKlienta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Oplata_SposobOplati">
+    <End Role="SposobOplati" Type="Self.SposobOplati" Multiplicity="0..1" />
+    <End Role="Oplata" Type="Self.Oplata" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SposobOplati">
+        <PropertyRef Name="IdSposobOplati" />
+      </Principal>
+      <Dependent Role="Oplata">
+        <PropertyRef Name="IdSposobOplati" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Oplata_StatusOplati">
+    <End Role="StatusOplati" Type="Self.StatusOplati" Multiplicity="0..1" />
+    <End Role="Oplata" Type="Self.Oplata" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusOplati">
+        <PropertyRef Name="IdStatusOplati" />
+      </Principal>
+      <Dependent Role="Oplata">
+        <PropertyRef Name="IdStatusOplati" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakazi_Oplata">
+    <End Role="Oplata" Type="Self.Oplata" Multiplicity="0..1" />
+    <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Oplata">
+        <PropertyRef Name="IdOplata" />
+      </Principal>
+      <Dependent Role="Zakazi">
+        <PropertyRef Name="IdOplata" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Otchet_Tip">
+    <End Role="Tip" Type="Self.Tip" Multiplicity="0..1" />
+    <End Role="Otchet" Type="Self.Otchet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tip">
+        <PropertyRef Name="IdTipOtcheta" />
+      </Principal>
+      <Dependent Role="Otchet">
+        <PropertyRef Name="IdTipOtcheta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Otchet_Vremia">
+    <End Role="Vremia" Type="Self.Vremia" Multiplicity="0..1" />
+    <End Role="Otchet" Type="Self.Otchet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vremia">
+        <PropertyRef Name="IdVremia" />
+      </Principal>
+      <Dependent Role="Otchet">
+        <PropertyRef Name="IdVremia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Smena_Otsenka">
+    <End Role="Otsenka" Type="Self.Otsenka" Multiplicity="0..1" />
+    <End Role="Smena" Type="Self.Smena" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Otsenka">
+        <PropertyRef Name="IdOtsenka" />
+      </Principal>
+      <Dependent Role="Smena">
+        <PropertyRef Name="IdOtsenka" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vremia_Period">
+    <End Role="Period" Type="Self.Period" Multiplicity="0..1" />
+    <End Role="Vremia" Type="Self.Vremia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Period">
+        <PropertyRef Name="IdPeriod" />
+      </Principal>
+      <Dependent Role="Vremia">
+        <PropertyRef Name="IdPeriod" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Poezdka_Tariv">
+    <End Role="Tariv" Type="Self.Tariv" Multiplicity="0..1" />
+    <End Role="Poezdka" Type="Self.Poezdka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tariv">
+        <PropertyRef Name="IdTariv" />
+      </Principal>
+      <Dependent Role="Poezdka">
+        <PropertyRef Name="IdTariv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakazi_Poezdka">
+    <End Role="Poezdka" Type="Self.Poezdka" Multiplicity="0..1" />
+    <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Poezdka">
+        <PropertyRef Name="IdPoezdka" />
+      </Principal>
+      <Dependent Role="Zakazi">
+        <PropertyRef Name="IdPoezdka" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Smena_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="0..1" />
+    <End Role="Smena" Type="Self.Smena" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="IdSotrudniki" />
+      </Principal>
+      <Dependent Role="Smena">
+        <PropertyRef Name="IdSotrudniki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakazi_Smena">
+    <End Role="Smena" Type="Self.Smena" Multiplicity="0..1" />
+    <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Smena">
+        <PropertyRef Name="IdSmena" />
+      </Principal>
+      <Dependent Role="Zakazi">
+        <PropertyRef Name="IdSmena" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TaxsoparkEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Avto" EntityType="Self.Avto" />
+    <EntitySet Name="Dolznost" EntityType="Self.Dolznost" />
+    <EntitySet Name="IstoriaZakazov" EntityType="Self.IstoriaZakazov" />
+    <EntitySet Name="Klient" EntityType="Self.Klient" />
+    <EntitySet Name="Oplata" EntityType="Self.Oplata" />
+    <EntitySet Name="Otchet" EntityType="Self.Otchet" />
+    <EntitySet Name="Otsenka" EntityType="Self.Otsenka" />
+    <EntitySet Name="Period" EntityType="Self.Period" />
+    <EntitySet Name="PlatezhnyyeKarty" EntityType="Self.PlatezhnyyeKarty" />
+    <EntitySet Name="Poezdka" EntityType="Self.Poezdka" />
+    <EntitySet Name="Smena" EntityType="Self.Smena" />
+    <EntitySet Name="SostoyaniyeAvto" EntityType="Self.SostoyaniyeAvto" />
+    <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" />
+    <EntitySet Name="SposobOplati" EntityType="Self.SposobOplati" />
+    <EntitySet Name="StatusOplati" EntityType="Self.StatusOplati" />
+    <EntitySet Name="Tariv" EntityType="Self.Tariv" />
+    <EntitySet Name="Tip" EntityType="Self.Tip" />
+    <EntitySet Name="Tip_Avto" EntityType="Self.Tip_Avto" />
+    <EntitySet Name="Vremia" EntityType="Self.Vremia" />
+    <EntitySet Name="Zakazi" EntityType="Self.Zakazi" />
+    <AssociationSet Name="FK_Avto_SostoyaniyeAvto" Association="Self.FK_Avto_SostoyaniyeAvto">
+      <End Role="SostoyaniyeAvto" EntitySet="SostoyaniyeAvto" />
+      <End Role="Avto" EntitySet="Avto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Avto_Tip_Avto" Association="Self.FK_Avto_Tip_Avto">
+      <End Role="Tip_Avto" EntitySet="Tip_Avto" />
+      <End Role="Avto" EntitySet="Avto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Smena_Avto" Association="Self.FK_Smena_Avto">
+      <End Role="Avto" EntitySet="Avto" />
+      <End Role="Smena" EntitySet="Smena" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sotrudniki_Dolznost" Association="Self.FK_Sotrudniki_Dolznost">
+      <End Role="Dolznost" EntitySet="Dolznost" />
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IstoriaZakazov_Otchet" Association="Self.FK_IstoriaZakazov_Otchet">
+      <End Role="Otchet" EntitySet="Otchet" />
+      <End Role="IstoriaZakazov" EntitySet="IstoriaZakazov" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IstoriaZakazov_Zakazi" Association="Self.FK_IstoriaZakazov_Zakazi">
+      <End Role="Zakazi" EntitySet="Zakazi" />
+      <End Role="IstoriaZakazov" EntitySet="IstoriaZakazov" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Klient_otsenka" Association="Self.FK_Klient_otsenka">
+      <End Role="Otsenka" EntitySet="Otsenka" />
+      <End Role="Klient" EntitySet="Klient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Klient_PlatezhnyyeKarty" Association="Self.FK_Klient_PlatezhnyyeKarty">
+      <End Role="PlatezhnyyeKarty" EntitySet="PlatezhnyyeKarty" />
+      <End Role="Klient" EntitySet="Klient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakazi_Klient" Association="Self.FK_Zakazi_Klient">
+      <End Role="Klient" EntitySet="Klient" />
+      <End Role="Zakazi" EntitySet="Zakazi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Oplata_SposobOplati" Association="Self.FK_Oplata_SposobOplati">
+      <End Role="SposobOplati" EntitySet="SposobOplati" />
+      <End Role="Oplata" EntitySet="Oplata" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Oplata_StatusOplati" Association="Self.FK_Oplata_StatusOplati">
+      <End Role="StatusOplati" EntitySet="StatusOplati" />
+      <End Role="Oplata" EntitySet="Oplata" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakazi_Oplata" Association="Self.FK_Zakazi_Oplata">
+      <End Role="Oplata" EntitySet="Oplata" />
+      <End Role="Zakazi" EntitySet="Zakazi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Otchet_Tip" Association="Self.FK_Otchet_Tip">
+      <End Role="Tip" EntitySet="Tip" />
+      <End Role="Otchet" EntitySet="Otchet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Otchet_Vremia" Association="Self.FK_Otchet_Vremia">
+      <End Role="Vremia" EntitySet="Vremia" />
+      <End Role="Otchet" EntitySet="Otchet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Smena_Otsenka" Association="Self.FK_Smena_Otsenka">
+      <End Role="Otsenka" EntitySet="Otsenka" />
+      <End Role="Smena" EntitySet="Smena" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vremia_Period" Association="Self.FK_Vremia_Period">
+      <End Role="Period" EntitySet="Period" />
+      <End Role="Vremia" EntitySet="Vremia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Poezdka_Tariv" Association="Self.FK_Poezdka_Tariv">
+      <End Role="Tariv" EntitySet="Tariv" />
+      <End Role="Poezdka" EntitySet="Poezdka" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakazi_Poezdka" Association="Self.FK_Zakazi_Poezdka">
+      <End Role="Poezdka" EntitySet="Poezdka" />
+      <End Role="Zakazi" EntitySet="Zakazi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Smena_Sotrudniki" Association="Self.FK_Smena_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Smena" EntitySet="Smena" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakazi_Smena" Association="Self.FK_Zakazi_Smena">
+      <End Role="Smena" EntitySet="Smena" />
+      <End Role="Zakazi" EntitySet="Zakazi" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

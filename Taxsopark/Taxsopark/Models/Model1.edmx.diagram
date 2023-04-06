@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="29341cba000940569e5b50c7f884b310" Name="Diagram1">
+        <EntityTypeShape EntityType="TaxsoparkModel.Avto" Width="1.5" PointX="3.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Dolznost" Width="1.5" PointX="1.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.IstoriaZakazov" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Klient" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Oplata" Width="1.5" PointX="6" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Otchet" Width="1.5" PointX="8.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Otsenka" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Period" Width="1.5" PointX="3.75" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.PlatezhnyyeKarty" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Poezdka" Width="1.5" PointX="6" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Smena" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.SostoyaniyeAvto" Width="1.5" PointX="1.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Sotrudniki" Width="1.5" PointX="3.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.SposobOplati" Width="1.5" PointX="3.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.StatusOplati" Width="1.5" PointX="3.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Tariv" Width="1.5" PointX="3.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Tip" Width="1.5" PointX="6" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Tip_Avto" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Vremia" Width="1.5" PointX="6" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaxsoparkModel.Zakazi" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Avto_SostoyaniyeAvto" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Avto_Tip_Avto" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Smena_Avto" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Sotrudniki_Dolznost" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_IstoriaZakazov_Otchet" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_IstoriaZakazov_Zakazi" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Klient_otsenka" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Klient_PlatezhnyyeKarty" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Zakazi_Klient" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Oplata_SposobOplati" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Oplata_StatusOplati" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Zakazi_Oplata" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Otchet_Tip" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Otchet_Vremia" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Smena_Otsenka" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Vremia_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Poezdka_Tariv" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Zakazi_Poezdka" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Smena_Sotrudniki" ManuallyRouted="false" />
+        <AssociationConnector Association="TaxsoparkModel.FK_Zakazi_Smena" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
